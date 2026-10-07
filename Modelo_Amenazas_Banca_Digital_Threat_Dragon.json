@@ -1,0 +1,3790 @@
+{
+  "version": "2.0",
+  "summary": {
+    "title": "Modelo de Amenazas - Plataforma de Banca Digital",
+    "owner": "Equipo de Seguridad de Aplicaciones",
+    "description": "Modelo académico completo para banca digital web/móvil, APIs, integraciones, datos e infraestructura. Metodología STRIDE."
+  },
+  "detail": {
+    "contributors": [
+      {
+        "name": "Equipo de Seguridad de Aplicaciones"
+      }
+    ],
+    "diagrams": [
+      {
+        "title": "DFD Nivel 0 - Contexto general",
+        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
+        "diagramType": "STRIDE",
+        "id": 0,
+        "diagramJson": {
+          "cells": [
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 60,
+                "y": 260
+              },
+              "angle": 0,
+              "id": "a68f622b-e4f1-482c-99d2-3da616267623",
+              "z": 1,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T01 - Credential stuffing y toma de cuenta",
+                  "type": "Spoofing",
+                  "description": "Un atacante reutiliza credenciales filtradas o automatiza intentos para autenticarse como un cliente legítimo.",
+                  "mitigation": "Preventivo: MFA resistente a phishing, protección anti-bot, rate limiting adaptativo, contraseñas comprometidas bloqueadas.\nDetectivo: Alertas por anomalías de login, IP/dispositivo nuevo, múltiples fallos y velocidad anormal.\nCorrectivo: Revocar sesiones, reset de credenciales, investigación y notificación al cliente.",
+                  "modelType": "STRIDE",
+                  "number": 1,
+                  "score": "Crítico (12)",
+                  "threatId": "f4ce8380-0a4a-4db4-b207-a69a2e8ca423"
+                }
+              ],
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Cliente Web / Móvil"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Process",
+              "size": {
+                "width": 120,
+                "height": 100
+              },
+              "position": {
+                "x": 480,
+                "y": 250
+              },
+              "angle": 0,
+              "id": "d297a3b1-2242-40f4-8330-fe22be6340a5",
+              "z": 2,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T02 - Robo o replay de token de sesión",
+                  "type": "Spoofing",
+                  "description": "Un token robado o reutilizado permite secuestrar una sesión y operar como el usuario.",
+                  "mitigation": "Preventivo: TLS estricto, cookies HttpOnly/Secure/SameSite, tokens de corta vida, rotación de refresh token y binding cuando aplique.\nDetectivo: Detección de reutilización de refresh token, geovelocidad y cambio de dispositivo.\nCorrectivo: Revocación inmediata de tokens y cierre global de sesiones.",
+                  "modelType": "STRIDE",
+                  "number": 2,
+                  "score": "Crítico (12)",
+                  "threatId": "0fcd7e4c-4853-4534-ae7f-a06d95da63cc"
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T03 - Manipulación de monto o beneficiario",
+                  "type": "Tampering",
+                  "description": "El atacante modifica parámetros de una transferencia antes de su ejecución.",
+                  "mitigation": "Preventivo: Validación server-side, controles de negocio, confirmación transaccional, firma/nonce del contexto y límites.\nDetectivo: Reglas antifraude, comparación de beneficiario/monto y alertas de operaciones inusuales.\nCorrectivo: Bloqueo/reverso cuando proceda, congelamiento de cuenta y análisis forense.",
+                  "modelType": "STRIDE",
+                  "number": 3,
+                  "score": "Crítico (12)",
+                  "threatId": "57ec0352-61fd-466c-b1a3-b6e0377e78ac"
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T04 - BOLA / acceso a cuentas ajenas",
+                  "type": "Elevation of privilege",
+                  "description": "Un usuario autenticado altera identificadores y accede a recursos de otro cliente.",
+                  "mitigation": "Preventivo: Autorización a nivel de objeto en cada solicitud, ABAC/RBAC y deny-by-default.\nDetectivo: Alertas por enumeración de IDs y accesos cruzados; pruebas automatizadas de autorización.\nCorrectivo: Bloquear cuenta/sesión, corregir regla y revisar exposición de datos.",
+                  "modelType": "STRIDE",
+                  "number": 4,
+                  "score": "Crítico (12)",
+                  "threatId": "97d0c273-5f63-4c72-a4a0-4c3326731b92"
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T10 - DDoS sobre login y APIs críticas",
+                  "type": "Denial of service",
+                  "description": "Tráfico masivo o costoso agota recursos e impide el servicio.",
+                  "mitigation": "Preventivo: CDN/WAF, rate limiting, cuotas, circuit breakers, autoscaling y caching seguro.\nDetectivo: Métricas de latencia, saturación, errores 429/5xx y detección de bots.\nCorrectivo: Activar mitigación DDoS, limitar funciones no críticas y escalar capacidad.",
+                  "modelType": "STRIDE",
+                  "number": 10,
+                  "score": "Alto (9)",
+                  "threatId": "37d15018-5d00-449d-8f27-1fcefc70f74e"
+                }
+              ],
+              "privilegeLevel": "executionContext=Limited",
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "isWebApplication": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Plataforma Banca Digital"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 980,
+                "y": 90
+              },
+              "angle": 0,
+              "id": "09fcc403-e2cf-4e01-800a-43417e1f0778",
+              "z": 3,
+              "threats": [],
+              "outOfScope": false,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Core Bancario"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 980,
+                "y": 260
+              },
+              "angle": 0,
+              "id": "91ae422f-bb05-4ceb-92cf-b53100e37f21",
+              "z": 4,
+              "threats": [],
+              "outOfScope": false,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Red de Pagos"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 980,
+                "y": 430
+              },
+              "angle": 0,
+              "id": "36bf3fb8-9389-436d-9ec3-dd0a914ebbba",
+              "z": 5,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T14 - Compromiso de proveedor de notificaciones",
+                  "type": "Tampering",
+                  "description": "Un tercero comprometido altera mensajes, roba OTP o suplanta notificaciones.",
+                  "mitigation": "Preventivo: Contratos y controles de tercero, tokens de mínimo privilegio, separar OTP de contenido sensible, mTLS cuando exista.\nDetectivo: Monitoreo de errores/anomalías del proveedor y reconciliación de entregas.\nCorrectivo: Revocar integración, cambiar proveedor/canal y activar procedimiento de tercero.",
+                  "modelType": "STRIDE",
+                  "number": 14,
+                  "score": "Alto (9)",
+                  "threatId": "33c73748-d61d-4dfc-a817-49e6645fa686"
+                }
+              ],
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Proveedor MFA / Notificaciones"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "a68f622b-e4f1-482c-99d2-3da616267623"
+              },
+              "target": {
+                "id": "d297a3b1-2242-40f4-8330-fe22be6340a5"
+              },
+              "vertices": [],
+              "id": "ac341aef-d413-41c5-b304-394a9cc3e6c7",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "HTTPS: autenticación y operaciones",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 6,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T02 - Robo o replay de token de sesión",
+                  "type": "Spoofing",
+                  "description": "Un token robado o reutilizado permite secuestrar una sesión y operar como el usuario.",
+                  "mitigation": "Preventivo: TLS estricto, cookies HttpOnly/Secure/SameSite, tokens de corta vida, rotación de refresh token y binding cuando aplique.\nDetectivo: Detección de reutilización de refresh token, geovelocidad y cambio de dispositivo.\nCorrectivo: Revocación inmediata de tokens y cierre global de sesiones.",
+                  "modelType": "STRIDE",
+                  "number": 2,
+                  "score": "Crítico (12)",
+                  "threatId": "a8bc038b-5bdd-4d89-9b26-20f74ba5ea8e"
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T08 - Intercepción por TLS débil o mala configuración",
+                  "type": "Information disclosure",
+                  "description": "Un atacante intercepta o altera tráfico por TLS insuficiente o ausencia de mTLS en enlaces críticos.",
+                  "mitigation": "Preventivo: TLS 1.2+ / 1.3, HSTS, validación de certificados, mTLS interno y pinning evaluado en móvil.\nDetectivo: Monitoreo de certificados, handshake failures y configuración continua.\nCorrectivo: Rotar certificados/llaves, bloquear protocolos débiles y revisar exposición.",
+                  "modelType": "STRIDE",
+                  "number": 8,
+                  "score": "Alto (8)",
+                  "threatId": "b0a74ecf-232b-4233-91fd-c9bd445077d9"
+                }
+              ],
+              "protocol": "HTTPS",
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "d297a3b1-2242-40f4-8330-fe22be6340a5"
+              },
+              "target": {
+                "id": "09fcc403-e2cf-4e01-800a-43417e1f0778"
+              },
+              "vertices": [],
+              "id": "6523d3b4-76ee-4d30-8386-2f327381ad22",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "mTLS/VPN: cuentas y ledger",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 7,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T20 - Manipulación de mensajes de integración",
+                  "type": "Tampering",
+                  "description": "Mensajes hacia core o procesadores son modificados, reordenados o falsificados.",
+                  "mitigation": "Preventivo: mTLS, firma de mensajes cuando aplique, schemas estrictos, nonces e integridad end-to-end.\nDetectivo: Reconciliación, firmas inválidas y alertas por secuencias anómalas.\nCorrectivo: Rechazar mensajes, reconciliar ledger y reprocesar desde fuente confiable.",
+                  "modelType": "STRIDE",
+                  "number": 20,
+                  "score": "Alto (8)",
+                  "threatId": "c697a1ca-277a-4eb8-a9f0-e4da571d9b6a"
+                }
+              ],
+              "protocol": "mTLS",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "d297a3b1-2242-40f4-8330-fe22be6340a5"
+              },
+              "target": {
+                "id": "91ae422f-bb05-4ceb-92cf-b53100e37f21"
+              },
+              "vertices": [],
+              "id": "fcd7d6e0-8300-478d-a38d-2c6d307506a7",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "mTLS/VPN: transferencias externas",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 8,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T20 - Manipulación de mensajes de integración",
+                  "type": "Tampering",
+                  "description": "Mensajes hacia core o procesadores son modificados, reordenados o falsificados.",
+                  "mitigation": "Preventivo: mTLS, firma de mensajes cuando aplique, schemas estrictos, nonces e integridad end-to-end.\nDetectivo: Reconciliación, firmas inválidas y alertas por secuencias anómalas.\nCorrectivo: Rechazar mensajes, reconciliar ledger y reprocesar desde fuente confiable.",
+                  "modelType": "STRIDE",
+                  "number": 20,
+                  "score": "Alto (8)",
+                  "threatId": "7877d76b-be8b-4bd0-bde1-7194e120e8b4"
+                }
+              ],
+              "protocol": "mTLS",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "d297a3b1-2242-40f4-8330-fe22be6340a5"
+              },
+              "target": {
+                "id": "36bf3fb8-9389-436d-9ec3-dd0a914ebbba"
+              },
+              "vertices": [],
+              "id": "91a1f287-d895-4f13-993e-4308d9eefd1f",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "HTTPS: OTP y notificaciones",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 9,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T11 - Bypass o brute force de OTP/MFA",
+                  "type": "Spoofing",
+                  "description": "El atacante prueba OTP, explota recuperación débil o fatiga MFA.",
+                  "mitigation": "Preventivo: Límites de intentos, expiración corta, MFA phishing-resistant para operaciones sensibles y recovery fuerte.\nDetectivo: Alertas por múltiples desafíos, MFA fatigue y cambios de factor.\nCorrectivo: Bloquear desafíos, reset seguro del factor y revocar sesiones.",
+                  "modelType": "STRIDE",
+                  "number": 11,
+                  "score": "Crítico (12)",
+                  "threatId": "c30524a2-f97e-4478-9316-dea91875fc6a"
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T14 - Compromiso de proveedor de notificaciones",
+                  "type": "Tampering",
+                  "description": "Un tercero comprometido altera mensajes, roba OTP o suplanta notificaciones.",
+                  "mitigation": "Preventivo: Contratos y controles de tercero, tokens de mínimo privilegio, separar OTP de contenido sensible, mTLS cuando exista.\nDetectivo: Monitoreo de errores/anomalías del proveedor y reconciliación de entregas.\nCorrectivo: Revocar integración, cambiar proveedor/canal y activar procedimiento de tercero.",
+                  "modelType": "STRIDE",
+                  "number": 14,
+                  "score": "Alto (9)",
+                  "threatId": "bd46bfc6-31bb-4347-9c29-1aabd4d6fa55"
+                }
+              ],
+              "protocol": "HTTPS",
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Boundary",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "x": 340,
+                "y": 40
+              },
+              "target": {
+                "x": 340,
+                "y": 650
+              },
+              "vertices": [],
+              "id": "3d437c8b-12ca-467c-b88d-6eaca37446f5",
+              "z": 10,
+              "isTrustBoundary": true,
+              "hasOpenThreats": false,
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "TB-01 Internet / Edge",
+                      "font-weight": "700",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "attrs": {}
+            },
+            {
+              "type": "tm.Boundary",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "x": 850,
+                "y": 40
+              },
+              "target": {
+                "x": 850,
+                "y": 650
+              },
+              "vertices": [],
+              "id": "9803e498-c889-4118-b3af-b44c89fe7e34",
+              "z": 11,
+              "isTrustBoundary": true,
+              "hasOpenThreats": false,
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "TB-02 Sistemas externos / terceros",
+                      "font-weight": "700",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "attrs": {}
+            }
+          ]
+        },
+        "size": {
+          "height": 700,
+          "width": 1300
+        },
+        "version": "2.0"
+      },
+      {
+        "title": "DFD Nivel 1 - Componentes y flujos principales",
+        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
+        "diagramType": "STRIDE",
+        "id": 1,
+        "diagramJson": {
+          "cells": [
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 40,
+                "y": 110
+              },
+              "angle": 0,
+              "id": "4a901a5a-64cb-4413-985d-5155bb902697",
+              "z": 1,
+              "threats": [],
+              "outOfScope": false,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Cliente Web"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 40,
+                "y": 260
+              },
+              "angle": 0,
+              "id": "692d8970-56d2-4599-80aa-b34b6d812e3c",
+              "z": 2,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T25 - Datos sensibles en almacenamiento móvil",
+                  "type": "Information disclosure",
+                  "description": "Tokens o PII se almacenan sin protección en el dispositivo.",
+                  "mitigation": "Preventivo: Keystore/Keychain, no almacenar secretos permanentes, cifrado y hardening móvil.\nDetectivo: Mobile app security testing y detección de anomalías de sesión.\nCorrectivo: Revocar tokens, publicar corrección y forzar actualización cuando corresponda.",
+                  "modelType": "STRIDE",
+                  "number": 25,
+                  "score": "Alto (9)",
+                  "threatId": "76546a69-3069-4792-9d36-2d411e4ed40c"
+                }
+              ],
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Aplicación Móvil"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 40,
+                "y": 430
+              },
+              "angle": 0,
+              "id": "fb30fcf6-7e77-48d5-b1c0-5442723841b5",
+              "z": 3,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T15 - Escalamiento a funciones administrativas",
+                  "type": "Elevation of privilege",
+                  "description": "Usuario o cuenta comprometida accede a endpoints administrativos o privilegios superiores.",
+                  "mitigation": "Preventivo: RBAC/ABAC, PAM/JIT, MFA fuerte, segregación de funciones y red administrativa separada.\nDetectivo: Alertas de cambios de rol, accesos privilegiados y comandos sensibles.\nCorrectivo: Revocar privilegios, bloquear cuenta y revisar cambios realizados.",
+                  "modelType": "STRIDE",
+                  "number": 15,
+                  "score": "Crítico (12)",
+                  "threatId": "3439d49b-065f-4787-81f6-61ef413fe935"
+                }
+              ],
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Administrador / Soporte"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Process",
+              "size": {
+                "width": 120,
+                "height": 100
+              },
+              "position": {
+                "x": 330,
+                "y": 230
+              },
+              "angle": 0,
+              "id": "a151c786-d6b3-40e0-92de-ccc35861b806",
+              "z": 4,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T10 - DDoS sobre login y APIs críticas",
+                  "type": "Denial of service",
+                  "description": "Tráfico masivo o costoso agota recursos e impide el servicio.",
+                  "mitigation": "Preventivo: CDN/WAF, rate limiting, cuotas, circuit breakers, autoscaling y caching seguro.\nDetectivo: Métricas de latencia, saturación, errores 429/5xx y detección de bots.\nCorrectivo: Activar mitigación DDoS, limitar funciones no críticas y escalar capacidad.",
+                  "modelType": "STRIDE",
+                  "number": 10,
+                  "score": "Alto (9)",
+                  "threatId": "e3cbc836-b5f9-4292-85f6-e49b292c2920"
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T22 - Agotamiento de recursos por abuso de API",
+                  "type": "Denial of service",
+                  "description": "Solicitudes costosas o concurrencia abusiva degradan pools, DB o servicios externos.",
+                  "mitigation": "Preventivo: Rate limits por identidad, timeouts, bulkheads, colas, límites de payload y circuit breakers.\nDetectivo: APM, saturación de pools, latencia p95/p99 y errores.\nCorrectivo: Throttle, degradación controlada y escalamiento.",
+                  "modelType": "STRIDE",
+                  "number": 22,
+                  "score": "Alto (9)",
+                  "threatId": "bcc2971b-b449-442a-9d8b-30d921309a1b"
+                }
+              ],
+              "privilegeLevel": "executionContext=Limited",
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "isWebApplication": true,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "WAF / API Gateway"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Process",
+              "size": {
+                "width": 120,
+                "height": 100
+              },
+              "position": {
+                "x": 560,
+                "y": 80
+              },
+              "angle": 0,
+              "id": "3c714ca1-d0a4-4fff-9781-fed572c4b181",
+              "z": 5,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T01 - Credential stuffing y toma de cuenta",
+                  "type": "Spoofing",
+                  "description": "Un atacante reutiliza credenciales filtradas o automatiza intentos para autenticarse como un cliente legítimo.",
+                  "mitigation": "Preventivo: MFA resistente a phishing, protección anti-bot, rate limiting adaptativo, contraseñas comprometidas bloqueadas.\nDetectivo: Alertas por anomalías de login, IP/dispositivo nuevo, múltiples fallos y velocidad anormal.\nCorrectivo: Revocar sesiones, reset de credenciales, investigación y notificación al cliente.",
+                  "modelType": "STRIDE",
+                  "number": 1,
+                  "score": "Crítico (12)",
+                  "threatId": "229eeadb-9222-49d8-a699-a23d170b300a"
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T02 - Robo o replay de token de sesión",
+                  "type": "Spoofing",
+                  "description": "Un token robado o reutilizado permite secuestrar una sesión y operar como el usuario.",
+                  "mitigation": "Preventivo: TLS estricto, cookies HttpOnly/Secure/SameSite, tokens de corta vida, rotación de refresh token y binding cuando aplique.\nDetectivo: Detección de reutilización de refresh token, geovelocidad y cambio de dispositivo.\nCorrectivo: Revocación inmediata de tokens y cierre global de sesiones.",
+                  "modelType": "STRIDE",
+                  "number": 2,
+                  "score": "Crítico (12)",
+                  "threatId": "0dc01640-e94c-4cc7-8486-35d9fa52661e"
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T11 - Bypass o brute force de OTP/MFA",
+                  "type": "Spoofing",
+                  "description": "El atacante prueba OTP, explota recuperación débil o fatiga MFA.",
+                  "mitigation": "Preventivo: Límites de intentos, expiración corta, MFA phishing-resistant para operaciones sensibles y recovery fuerte.\nDetectivo: Alertas por múltiples desafíos, MFA fatigue y cambios de factor.\nCorrectivo: Bloquear desafíos, reset seguro del factor y revocar sesiones.",
+                  "modelType": "STRIDE",
+                  "number": 11,
+                  "score": "Crítico (12)",
+                  "threatId": "e28caa26-2cb3-4fa4-bb64-1469f554528a"
+                }
+              ],
+              "privilegeLevel": "executionContext=Limited",
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "isWebApplication": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "IAM / Autenticación"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Process",
+              "size": {
+                "width": 120,
+                "height": 100
+              },
+              "position": {
+                "x": 560,
+                "y": 250
+              },
+              "angle": 0,
+              "id": "66cb8420-1b0b-4ead-81e5-c22326368335",
+              "z": 6,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T04 - BOLA / acceso a cuentas ajenas",
+                  "type": "Elevation of privilege",
+                  "description": "Un usuario autenticado altera identificadores y accede a recursos de otro cliente.",
+                  "mitigation": "Preventivo: Autorización a nivel de objeto en cada solicitud, ABAC/RBAC y deny-by-default.\nDetectivo: Alertas por enumeración de IDs y accesos cruzados; pruebas automatizadas de autorización.\nCorrectivo: Bloquear cuenta/sesión, corregir regla y revisar exposición de datos.",
+                  "modelType": "STRIDE",
+                  "number": 4,
+                  "score": "Crítico (12)",
+                  "threatId": "331c6b8d-bc0f-44a2-b451-e670a1e207b8"
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T05 - Inyección SQL/NoSQL en APIs",
+                  "type": "Tampering",
+                  "description": "Entradas no validadas alteran consultas o comandos hacia almacenes de datos.",
+                  "mitigation": "Preventivo: Consultas parametrizadas, ORM seguro, validación allow-list y mínimo privilegio de cuentas DB.\nDetectivo: WAF, errores de DB anómalos, SAST/DAST y alertas SIEM.\nCorrectivo: Rotar credenciales, aislar servicio, corregir código y verificar integridad.",
+                  "modelType": "STRIDE",
+                  "number": 5,
+                  "score": "Crítico (12)",
+                  "threatId": "614e31a7-707d-4433-879a-f1091099a8bb"
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T07 - Exposición de PII o datos financieros en API",
+                  "type": "Information disclosure",
+                  "description": "Respuestas excesivas, errores o endpoints inseguros revelan datos sensibles.",
+                  "mitigation": "Preventivo: Minimización de respuestas, field-level authorization, manejo seguro de errores y cifrado.\nDetectivo: DLP/API monitoring, detección de volúmenes inusuales y escaneo de logs.\nCorrectivo: Revocar acceso, contener fuga, notificar según política y corregir contrato API.",
+                  "modelType": "STRIDE",
+                  "number": 7,
+                  "score": "Alto (8)",
+                  "threatId": "b829dd7d-14e3-403d-aea6-e3b327b22946"
+                }
+              ],
+              "privilegeLevel": "executionContext=Limited",
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "isWebApplication": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "API Banca Digital"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Process",
+              "size": {
+                "width": 120,
+                "height": 100
+              },
+              "position": {
+                "x": 790,
+                "y": 250
+              },
+              "angle": 0,
+              "id": "41869f0e-42e0-4f46-867d-16a70e859ffe",
+              "z": 7,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T03 - Manipulación de monto o beneficiario",
+                  "type": "Tampering",
+                  "description": "El atacante modifica parámetros de una transferencia antes de su ejecución.",
+                  "mitigation": "Preventivo: Validación server-side, controles de negocio, confirmación transaccional, firma/nonce del contexto y límites.\nDetectivo: Reglas antifraude, comparación de beneficiario/monto y alertas de operaciones inusuales.\nCorrectivo: Bloqueo/reverso cuando proceda, congelamiento de cuenta y análisis forense.",
+                  "modelType": "STRIDE",
+                  "number": 3,
+                  "score": "Crítico (12)",
+                  "threatId": "fef81f4d-b270-484e-ab02-dc95872c876d"
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T06 - Repudio de una transferencia",
+                  "type": "Repudiation",
+                  "description": "Un usuario o actor interno niega haber ejecutado una operación y no existe evidencia suficiente.",
+                  "mitigation": "Preventivo: Auditoría inmutable, correlación, timestamp confiable, identidad fuerte y confirmación de operación.\nDetectivo: SIEM valida gaps, borrado de logs y eventos sin correlation-id.\nCorrectivo: Preservar evidencia, reconstruir línea temporal y reforzar logging.",
+                  "modelType": "STRIDE",
+                  "number": 6,
+                  "score": "Alto (8)",
+                  "threatId": "ca38ca0d-f4ae-4f1c-8a5e-98809432f17f"
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T12 - Replay / duplicación de transferencias",
+                  "type": "Tampering",
+                  "description": "La misma solicitud válida se reenvía y puede provocar cargos duplicados.",
+                  "mitigation": "Preventivo: Idempotency keys, nonces, timestamps, estado transaccional y bloqueo atómico.\nDetectivo: Detección de claves repetidas y transacciones idénticas en ventana corta.\nCorrectivo: Cancelar/revertir duplicados y ajustar lógica transaccional.",
+                  "modelType": "STRIDE",
+                  "number": 12,
+                  "score": "Crítico (12)",
+                  "threatId": "cfc206fb-7980-4bd1-b572-2a924f33ae50"
+                }
+              ],
+              "privilegeLevel": "executionContext=Limited",
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "isWebApplication": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Servicio Transferencias"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Process",
+              "size": {
+                "width": 120,
+                "height": 100
+              },
+              "position": {
+                "x": 790,
+                "y": 430
+              },
+              "angle": 0,
+              "id": "1b574a6a-6729-4cf3-bd8d-b63631687542",
+              "z": 8,
+              "threats": [],
+              "privilegeLevel": "executionContext=Limited",
+              "outOfScope": false,
+              "hasOpenThreats": false,
+              "isWebApplication": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Notificaciones"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 170,
+                "height": 80
+              },
+              "position": {
+                "x": 1040,
+                "y": 100
+              },
+              "angle": 0,
+              "id": "fd719062-ecf0-4e1f-b1e6-865d15d160bc",
+              "z": 9,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T18 - Exfiltración desde base de datos",
+                  "type": "Information disclosure",
+                  "description": "Credenciales o privilegios de DB permiten lectura masiva de datos.",
+                  "mitigation": "Preventivo: Segmentación, cifrado at-rest, mínimo privilegio, DB activity monitoring y secretos rotados.\nDetectivo: Alertas de consultas masivas, exportaciones y accesos fuera de patrón.\nCorrectivo: Aislar cuenta, rotar credenciales y activar respuesta a fuga.",
+                  "modelType": "STRIDE",
+                  "number": 18,
+                  "score": "Alto (8)",
+                  "threatId": "ae9dbcf4-f360-4844-979b-c4e0bfd0076a"
+                }
+              ],
+              "storesCredentials": true,
+              "isALog": false,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "DB Clientes / Cuentas"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 170,
+                "height": 80
+              },
+              "position": {
+                "x": 1040,
+                "y": 250
+              },
+              "angle": 0,
+              "id": "75ee2acc-3556-4b6d-9e73-9582187fe3b5",
+              "z": 10,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T18 - Exfiltración desde base de datos",
+                  "type": "Information disclosure",
+                  "description": "Credenciales o privilegios de DB permiten lectura masiva de datos.",
+                  "mitigation": "Preventivo: Segmentación, cifrado at-rest, mínimo privilegio, DB activity monitoring y secretos rotados.\nDetectivo: Alertas de consultas masivas, exportaciones y accesos fuera de patrón.\nCorrectivo: Aislar cuenta, rotar credenciales y activar respuesta a fuga.",
+                  "modelType": "STRIDE",
+                  "number": 18,
+                  "score": "Alto (8)",
+                  "threatId": "d8ebf155-c285-4eaf-9fb4-3cf65bf9955a"
+                }
+              ],
+              "storesCredentials": false,
+              "isALog": false,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "DB Transacciones"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 170,
+                "height": 80
+              },
+              "position": {
+                "x": 1040,
+                "y": 390
+              },
+              "angle": 0,
+              "id": "3fbf0bc5-91c8-41e0-a409-04a317c8eeb0",
+              "z": 11,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "title": "T17 - Envenenamiento de sesión/cache",
+                  "type": "Tampering",
+                  "description": "Un actor modifica datos de sesión, nonce o caché para cambiar comportamiento.",
+                  "mitigation": "Preventivo: Integridad de sesión, claves aleatorias, TTL, ACL estrictas y TLS.\nDetectivo: Detección de inconsistencias de sesión y accesos administrativos.\nCorrectivo: Invalidar caché/sesiones y restaurar datos confiables.",
+                  "modelType": "STRIDE",
+                  "number": 17,
+                  "score": "Medio (6)",
+                  "threatId": "43b64213-e92b-487f-91fa-5edb075c6233"
+                }
+              ],
+              "storesCredentials": true,
+              "isALog": false,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Sesiones / Idempotencia"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 170,
+                "height": 80
+              },
+              "position": {
+                "x": 1040,
+                "y": 520
+              },
+              "angle": 0,
+              "id": "f8c8d09d-3ab3-4c27-8498-ec4771029416",
+              "z": 12,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T06 - Repudio de una transferencia",
+                  "type": "Repudiation",
+                  "description": "Un usuario o actor interno niega haber ejecutado una operación y no existe evidencia suficiente.",
+                  "mitigation": "Preventivo: Auditoría inmutable, correlación, timestamp confiable, identidad fuerte y confirmación de operación.\nDetectivo: SIEM valida gaps, borrado de logs y eventos sin correlation-id.\nCorrectivo: Preservar evidencia, reconstruir línea temporal y reforzar logging.",
+                  "modelType": "STRIDE",
+                  "number": 6,
+                  "score": "Alto (8)",
+                  "threatId": "622baf1a-6069-4604-994d-4a2bab61cbfe"
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "title": "T16 - Logs incompletos o sin correlación",
+                  "type": "Repudiation",
+                  "description": "La organización no puede atribuir acciones por falta de eventos, identidad o correlation-id.",
+                  "mitigation": "Preventivo: Logging estándar, correlation-id, UTC/NTP, campos mínimos y retención definida.\nDetectivo: Controles de cobertura y health checks del pipeline de logs.\nCorrectivo: Restaurar ingestión, preservar fuentes alternas y completar telemetría.",
+                  "modelType": "STRIDE",
+                  "number": 16,
+                  "score": "Medio (6)",
+                  "threatId": "e0ac3ace-2f64-48e6-92bc-9d8472430ff3"
+                }
+              ],
+              "storesCredentials": false,
+              "isALog": true,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Logs Auditoría"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 170,
+                "height": 80
+              },
+              "position": {
+                "x": 790,
+                "y": 600
+              },
+              "angle": 0,
+              "id": "aeaf04ad-75b8-4eff-b636-0c759d2c7ae9",
+              "z": 13,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T09 - Exposición de secretos de aplicación",
+                  "type": "Information disclosure",
+                  "description": "API keys, passwords o claves privadas quedan en código, variables inseguras o logs.",
+                  "mitigation": "Preventivo: Vault/KMS, secretos dinámicos, rotación, escaneo de secretos y prohibición de hardcoding.\nDetectivo: Secret scanning, SIEM y alertas de uso desde ubicaciones inesperadas.\nCorrectivo: Revocar y rotar secreto, invalidar accesos y revisar historial de uso.",
+                  "modelType": "STRIDE",
+                  "number": 9,
+                  "score": "Alto (8)",
+                  "threatId": "0424eecf-99bb-403a-9f12-8010d85c0303"
+                }
+              ],
+              "storesCredentials": true,
+              "isALog": false,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Vault / KMS"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 1290,
+                "y": 140
+              },
+              "angle": 0,
+              "id": "637d06fb-cf2f-46d2-84b5-092c268dbd2f",
+              "z": 14,
+              "threats": [],
+              "outOfScope": false,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Core Bancario"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 1290,
+                "y": 300
+              },
+              "angle": 0,
+              "id": "4733736b-12ae-4da2-947d-63868ffb6129",
+              "z": 15,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T14 - Compromiso de proveedor de notificaciones",
+                  "type": "Tampering",
+                  "description": "Un tercero comprometido altera mensajes, roba OTP o suplanta notificaciones.",
+                  "mitigation": "Preventivo: Contratos y controles de tercero, tokens de mínimo privilegio, separar OTP de contenido sensible, mTLS cuando exista.\nDetectivo: Monitoreo de errores/anomalías del proveedor y reconciliación de entregas.\nCorrectivo: Revocar integración, cambiar proveedor/canal y activar procedimiento de tercero.",
+                  "modelType": "STRIDE",
+                  "number": 14,
+                  "score": "Alto (9)",
+                  "threatId": "55d09c9a-1a26-49c6-b70c-029254fb94cc"
+                }
+              ],
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Procesador Pagos"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 1290,
+                "y": 460
+              },
+              "angle": 0,
+              "id": "66326ab1-305f-445e-871c-7f6855c9ad8f",
+              "z": 16,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T14 - Compromiso de proveedor de notificaciones",
+                  "type": "Tampering",
+                  "description": "Un tercero comprometido altera mensajes, roba OTP o suplanta notificaciones.",
+                  "mitigation": "Preventivo: Contratos y controles de tercero, tokens de mínimo privilegio, separar OTP de contenido sensible, mTLS cuando exista.\nDetectivo: Monitoreo de errores/anomalías del proveedor y reconciliación de entregas.\nCorrectivo: Revocar integración, cambiar proveedor/canal y activar procedimiento de tercero.",
+                  "modelType": "STRIDE",
+                  "number": 14,
+                  "score": "Alto (9)",
+                  "threatId": "a7dec220-fdb7-4e2d-9690-cc8211f60b2a"
+                }
+              ],
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Proveedor MFA"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 1290,
+                "y": 600
+              },
+              "angle": 0,
+              "id": "23c39c50-1868-4d11-92d7-c2088d8ab730",
+              "z": 17,
+              "threats": [],
+              "outOfScope": false,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "SIEM / SOC"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "4a901a5a-64cb-4413-985d-5155bb902697"
+              },
+              "target": {
+                "id": "a151c786-d6b3-40e0-92de-ccc35861b806"
+              },
+              "vertices": [],
+              "id": "4bfaefa8-3473-4c52-b391-207dd5c7ce3e",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "HTTPS",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 18,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T08 - Intercepción por TLS débil o mala configuración",
+                  "type": "Information disclosure",
+                  "description": "Un atacante intercepta o altera tráfico por TLS insuficiente o ausencia de mTLS en enlaces críticos.",
+                  "mitigation": "Preventivo: TLS 1.2+ / 1.3, HSTS, validación de certificados, mTLS interno y pinning evaluado en móvil.\nDetectivo: Monitoreo de certificados, handshake failures y configuración continua.\nCorrectivo: Rotar certificados/llaves, bloquear protocolos débiles y revisar exposición.",
+                  "modelType": "STRIDE",
+                  "number": 8,
+                  "score": "Alto (8)",
+                  "threatId": "961541b6-ad3b-4559-a16c-89b602a59d52"
+                }
+              ],
+              "protocol": "HTTPS",
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "692d8970-56d2-4599-80aa-b34b6d812e3c"
+              },
+              "target": {
+                "id": "a151c786-d6b3-40e0-92de-ccc35861b806"
+              },
+              "vertices": [],
+              "id": "29ddb28a-5e9a-4814-a119-497e1684b710",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "HTTPS",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 19,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T08 - Intercepción por TLS débil o mala configuración",
+                  "type": "Information disclosure",
+                  "description": "Un atacante intercepta o altera tráfico por TLS insuficiente o ausencia de mTLS en enlaces críticos.",
+                  "mitigation": "Preventivo: TLS 1.2+ / 1.3, HSTS, validación de certificados, mTLS interno y pinning evaluado en móvil.\nDetectivo: Monitoreo de certificados, handshake failures y configuración continua.\nCorrectivo: Rotar certificados/llaves, bloquear protocolos débiles y revisar exposición.",
+                  "modelType": "STRIDE",
+                  "number": 8,
+                  "score": "Alto (8)",
+                  "threatId": "854e67a7-18bb-4965-8f9f-86709bfb0a93"
+                }
+              ],
+              "protocol": "HTTPS",
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "fb30fcf6-7e77-48d5-b1c0-5442723841b5"
+              },
+              "target": {
+                "id": "a151c786-d6b3-40e0-92de-ccc35861b806"
+              },
+              "vertices": [],
+              "id": "81f9a7f3-a102-4b4a-a834-7c27ef9700ba",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "HTTPS",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 20,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T08 - Intercepción por TLS débil o mala configuración",
+                  "type": "Information disclosure",
+                  "description": "Un atacante intercepta o altera tráfico por TLS insuficiente o ausencia de mTLS en enlaces críticos.",
+                  "mitigation": "Preventivo: TLS 1.2+ / 1.3, HSTS, validación de certificados, mTLS interno y pinning evaluado en móvil.\nDetectivo: Monitoreo de certificados, handshake failures y configuración continua.\nCorrectivo: Rotar certificados/llaves, bloquear protocolos débiles y revisar exposición.",
+                  "modelType": "STRIDE",
+                  "number": 8,
+                  "score": "Alto (8)",
+                  "threatId": "a9c37bd8-8c5b-4095-87d3-ef7997109c0b"
+                }
+              ],
+              "protocol": "HTTPS",
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "a151c786-d6b3-40e0-92de-ccc35861b806"
+              },
+              "target": {
+                "id": "3c714ca1-d0a4-4fff-9781-fed572c4b181"
+              },
+              "vertices": [],
+              "id": "4948ce86-3a45-46f9-a38f-1bf9a597e76a",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Auth / token",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 21,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T02 - Robo o replay de token de sesión",
+                  "type": "Spoofing",
+                  "description": "Un token robado o reutilizado permite secuestrar una sesión y operar como el usuario.",
+                  "mitigation": "Preventivo: TLS estricto, cookies HttpOnly/Secure/SameSite, tokens de corta vida, rotación de refresh token y binding cuando aplique.\nDetectivo: Detección de reutilización de refresh token, geovelocidad y cambio de dispositivo.\nCorrectivo: Revocación inmediata de tokens y cierre global de sesiones.",
+                  "modelType": "STRIDE",
+                  "number": 2,
+                  "score": "Crítico (12)",
+                  "threatId": "4a189cd4-6b50-4f6b-95db-dd713ca9b8fb"
+                }
+              ],
+              "protocol": "HTTPS/mTLS",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "a151c786-d6b3-40e0-92de-ccc35861b806"
+              },
+              "target": {
+                "id": "66cb8420-1b0b-4ead-81e5-c22326368335"
+              },
+              "vertices": [],
+              "id": "b1f74eff-411b-40ca-8059-bc88123bf8e7",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "API requests",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 22,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T04 - BOLA / acceso a cuentas ajenas",
+                  "type": "Elevation of privilege",
+                  "description": "Un usuario autenticado altera identificadores y accede a recursos de otro cliente.",
+                  "mitigation": "Preventivo: Autorización a nivel de objeto en cada solicitud, ABAC/RBAC y deny-by-default.\nDetectivo: Alertas por enumeración de IDs y accesos cruzados; pruebas automatizadas de autorización.\nCorrectivo: Bloquear cuenta/sesión, corregir regla y revisar exposición de datos.",
+                  "modelType": "STRIDE",
+                  "number": 4,
+                  "score": "Crítico (12)",
+                  "threatId": "fb0b1f3c-35af-4870-beca-e97570712b92"
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T05 - Inyección SQL/NoSQL en APIs",
+                  "type": "Tampering",
+                  "description": "Entradas no validadas alteran consultas o comandos hacia almacenes de datos.",
+                  "mitigation": "Preventivo: Consultas parametrizadas, ORM seguro, validación allow-list y mínimo privilegio de cuentas DB.\nDetectivo: WAF, errores de DB anómalos, SAST/DAST y alertas SIEM.\nCorrectivo: Rotar credenciales, aislar servicio, corregir código y verificar integridad.",
+                  "modelType": "STRIDE",
+                  "number": 5,
+                  "score": "Crítico (12)",
+                  "threatId": "97edeec3-ece8-4259-b593-4431cccfa600"
+                }
+              ],
+              "protocol": "HTTPS/mTLS",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "66cb8420-1b0b-4ead-81e5-c22326368335"
+              },
+              "target": {
+                "id": "fd719062-ecf0-4e1f-b1e6-865d15d160bc"
+              },
+              "vertices": [],
+              "id": "0680814a-5818-4d28-ae21-30314afd9976",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Consultas cuentas",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 23,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T07 - Exposición de PII o datos financieros en API",
+                  "type": "Information disclosure",
+                  "description": "Respuestas excesivas, errores o endpoints inseguros revelan datos sensibles.",
+                  "mitigation": "Preventivo: Minimización de respuestas, field-level authorization, manejo seguro de errores y cifrado.\nDetectivo: DLP/API monitoring, detección de volúmenes inusuales y escaneo de logs.\nCorrectivo: Revocar acceso, contener fuga, notificar según política y corregir contrato API.",
+                  "modelType": "STRIDE",
+                  "number": 7,
+                  "score": "Alto (8)",
+                  "threatId": "7e4f0657-c8f4-4521-9994-5953ed0f044e"
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T18 - Exfiltración desde base de datos",
+                  "type": "Information disclosure",
+                  "description": "Credenciales o privilegios de DB permiten lectura masiva de datos.",
+                  "mitigation": "Preventivo: Segmentación, cifrado at-rest, mínimo privilegio, DB activity monitoring y secretos rotados.\nDetectivo: Alertas de consultas masivas, exportaciones y accesos fuera de patrón.\nCorrectivo: Aislar cuenta, rotar credenciales y activar respuesta a fuga.",
+                  "modelType": "STRIDE",
+                  "number": 18,
+                  "score": "Alto (8)",
+                  "threatId": "0bc8798a-0bd7-4cfc-910f-da1e6c2afec8"
+                }
+              ],
+              "protocol": "TLS DB",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "66cb8420-1b0b-4ead-81e5-c22326368335"
+              },
+              "target": {
+                "id": "41869f0e-42e0-4f46-867d-16a70e859ffe"
+              },
+              "vertices": [],
+              "id": "e287c263-fc34-4257-be97-11d18454ea47",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Orden transferencia",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 24,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T03 - Manipulación de monto o beneficiario",
+                  "type": "Tampering",
+                  "description": "El atacante modifica parámetros de una transferencia antes de su ejecución.",
+                  "mitigation": "Preventivo: Validación server-side, controles de negocio, confirmación transaccional, firma/nonce del contexto y límites.\nDetectivo: Reglas antifraude, comparación de beneficiario/monto y alertas de operaciones inusuales.\nCorrectivo: Bloqueo/reverso cuando proceda, congelamiento de cuenta y análisis forense.",
+                  "modelType": "STRIDE",
+                  "number": 3,
+                  "score": "Crítico (12)",
+                  "threatId": "a2942bef-5386-41a5-8e24-ab7d1ab7282c"
+                }
+              ],
+              "protocol": "mTLS",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "41869f0e-42e0-4f46-867d-16a70e859ffe"
+              },
+              "target": {
+                "id": "75ee2acc-3556-4b6d-9e73-9582187fe3b5"
+              },
+              "vertices": [],
+              "id": "9516d5a1-4135-4c05-9821-17f1b6e9d5a0",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Persistir operación",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 25,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T12 - Replay / duplicación de transferencias",
+                  "type": "Tampering",
+                  "description": "La misma solicitud válida se reenvía y puede provocar cargos duplicados.",
+                  "mitigation": "Preventivo: Idempotency keys, nonces, timestamps, estado transaccional y bloqueo atómico.\nDetectivo: Detección de claves repetidas y transacciones idénticas en ventana corta.\nCorrectivo: Cancelar/revertir duplicados y ajustar lógica transaccional.",
+                  "modelType": "STRIDE",
+                  "number": 12,
+                  "score": "Crítico (12)",
+                  "threatId": "f5aa8657-d4b4-431e-a030-4112e9d8fbc0"
+                }
+              ],
+              "protocol": "TLS DB",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "41869f0e-42e0-4f46-867d-16a70e859ffe"
+              },
+              "target": {
+                "id": "3fbf0bc5-91c8-41e0-a409-04a317c8eeb0"
+              },
+              "vertices": [],
+              "id": "e18ec4c7-defd-4e45-a0a7-9cb2c315779c",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Nonce / idempotencia",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 26,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T12 - Replay / duplicación de transferencias",
+                  "type": "Tampering",
+                  "description": "La misma solicitud válida se reenvía y puede provocar cargos duplicados.",
+                  "mitigation": "Preventivo: Idempotency keys, nonces, timestamps, estado transaccional y bloqueo atómico.\nDetectivo: Detección de claves repetidas y transacciones idénticas en ventana corta.\nCorrectivo: Cancelar/revertir duplicados y ajustar lógica transaccional.",
+                  "modelType": "STRIDE",
+                  "number": 12,
+                  "score": "Crítico (12)",
+                  "threatId": "b1227524-3fae-4a1e-9231-cbd726e572df"
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "title": "T17 - Envenenamiento de sesión/cache",
+                  "type": "Tampering",
+                  "description": "Un actor modifica datos de sesión, nonce o caché para cambiar comportamiento.",
+                  "mitigation": "Preventivo: Integridad de sesión, claves aleatorias, TTL, ACL estrictas y TLS.\nDetectivo: Detección de inconsistencias de sesión y accesos administrativos.\nCorrectivo: Invalidar caché/sesiones y restaurar datos confiables.",
+                  "modelType": "STRIDE",
+                  "number": 17,
+                  "score": "Medio (6)",
+                  "threatId": "a88188f9-873c-42ce-b246-dfeacbec7b9d"
+                }
+              ],
+              "protocol": "TLS",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "41869f0e-42e0-4f46-867d-16a70e859ffe"
+              },
+              "target": {
+                "id": "637d06fb-cf2f-46d2-84b5-092c268dbd2f"
+              },
+              "vertices": [],
+              "id": "596b00c5-2eaf-4436-9513-719c5231e5b9",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Operación core",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 27,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T20 - Manipulación de mensajes de integración",
+                  "type": "Tampering",
+                  "description": "Mensajes hacia core o procesadores son modificados, reordenados o falsificados.",
+                  "mitigation": "Preventivo: mTLS, firma de mensajes cuando aplique, schemas estrictos, nonces e integridad end-to-end.\nDetectivo: Reconciliación, firmas inválidas y alertas por secuencias anómalas.\nCorrectivo: Rechazar mensajes, reconciliar ledger y reprocesar desde fuente confiable.",
+                  "modelType": "STRIDE",
+                  "number": 20,
+                  "score": "Alto (8)",
+                  "threatId": "31fda648-ecea-4b7c-909d-e88a81222526"
+                }
+              ],
+              "protocol": "mTLS/VPN",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "41869f0e-42e0-4f46-867d-16a70e859ffe"
+              },
+              "target": {
+                "id": "4733736b-12ae-4da2-947d-63868ffb6129"
+              },
+              "vertices": [],
+              "id": "5798a7f6-d7fd-4017-9ceb-4af8f22b44a4",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Transferencia externa",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 28,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T20 - Manipulación de mensajes de integración",
+                  "type": "Tampering",
+                  "description": "Mensajes hacia core o procesadores son modificados, reordenados o falsificados.",
+                  "mitigation": "Preventivo: mTLS, firma de mensajes cuando aplique, schemas estrictos, nonces e integridad end-to-end.\nDetectivo: Reconciliación, firmas inválidas y alertas por secuencias anómalas.\nCorrectivo: Rechazar mensajes, reconciliar ledger y reprocesar desde fuente confiable.",
+                  "modelType": "STRIDE",
+                  "number": 20,
+                  "score": "Alto (8)",
+                  "threatId": "6908b9dc-b209-49d0-921c-1cc7493f5530"
+                }
+              ],
+              "protocol": "mTLS/VPN",
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "3c714ca1-d0a4-4fff-9781-fed572c4b181"
+              },
+              "target": {
+                "id": "66326ab1-305f-445e-871c-7f6855c9ad8f"
+              },
+              "vertices": [],
+              "id": "a0737686-840f-4e6a-a1cb-8a3b89f63af3",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "OTP / desafío",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 29,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T11 - Bypass o brute force de OTP/MFA",
+                  "type": "Spoofing",
+                  "description": "El atacante prueba OTP, explota recuperación débil o fatiga MFA.",
+                  "mitigation": "Preventivo: Límites de intentos, expiración corta, MFA phishing-resistant para operaciones sensibles y recovery fuerte.\nDetectivo: Alertas por múltiples desafíos, MFA fatigue y cambios de factor.\nCorrectivo: Bloquear desafíos, reset seguro del factor y revocar sesiones.",
+                  "modelType": "STRIDE",
+                  "number": 11,
+                  "score": "Crítico (12)",
+                  "threatId": "dc9619c0-cd96-4add-8468-e40aa4f34e86"
+                }
+              ],
+              "protocol": "HTTPS",
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "41869f0e-42e0-4f46-867d-16a70e859ffe"
+              },
+              "target": {
+                "id": "1b574a6a-6729-4cf3-bd8d-b63631687542"
+              },
+              "vertices": [],
+              "id": "4fe77e1d-b42d-427f-aceb-bb1b1810526f",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Evento confirmación",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 30,
+              "threats": [],
+              "protocol": "mTLS",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "outOfScope": false,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "1b574a6a-6729-4cf3-bd8d-b63631687542"
+              },
+              "target": {
+                "id": "66326ab1-305f-445e-871c-7f6855c9ad8f"
+              },
+              "vertices": [],
+              "id": "5740efdc-88fc-413f-b85d-dffd945ab760",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Notificación",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 31,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T14 - Compromiso de proveedor de notificaciones",
+                  "type": "Tampering",
+                  "description": "Un tercero comprometido altera mensajes, roba OTP o suplanta notificaciones.",
+                  "mitigation": "Preventivo: Contratos y controles de tercero, tokens de mínimo privilegio, separar OTP de contenido sensible, mTLS cuando exista.\nDetectivo: Monitoreo de errores/anomalías del proveedor y reconciliación de entregas.\nCorrectivo: Revocar integración, cambiar proveedor/canal y activar procedimiento de tercero.",
+                  "modelType": "STRIDE",
+                  "number": 14,
+                  "score": "Alto (9)",
+                  "threatId": "afbb0298-53f9-4c6a-b646-054e36c1e608"
+                }
+              ],
+              "protocol": "HTTPS",
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "66cb8420-1b0b-4ead-81e5-c22326368335"
+              },
+              "target": {
+                "id": "f8c8d09d-3ab3-4c27-8498-ec4771029416"
+              },
+              "vertices": [],
+              "id": "968d13ce-f00c-4e3e-94f6-4a91c83fecb7",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Eventos API",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 32,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "title": "T16 - Logs incompletos o sin correlación",
+                  "type": "Repudiation",
+                  "description": "La organización no puede atribuir acciones por falta de eventos, identidad o correlation-id.",
+                  "mitigation": "Preventivo: Logging estándar, correlation-id, UTC/NTP, campos mínimos y retención definida.\nDetectivo: Controles de cobertura y health checks del pipeline de logs.\nCorrectivo: Restaurar ingestión, preservar fuentes alternas y completar telemetría.",
+                  "modelType": "STRIDE",
+                  "number": 16,
+                  "score": "Medio (6)",
+                  "threatId": "231c63d0-f1f5-462b-88b7-d568ee0a38ac"
+                }
+              ],
+              "protocol": "TLS",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "41869f0e-42e0-4f46-867d-16a70e859ffe"
+              },
+              "target": {
+                "id": "f8c8d09d-3ab3-4c27-8498-ec4771029416"
+              },
+              "vertices": [],
+              "id": "e6020a83-1493-4b04-82a8-3fd73e09ece6",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Eventos transfer",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 33,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T06 - Repudio de una transferencia",
+                  "type": "Repudiation",
+                  "description": "Un usuario o actor interno niega haber ejecutado una operación y no existe evidencia suficiente.",
+                  "mitigation": "Preventivo: Auditoría inmutable, correlación, timestamp confiable, identidad fuerte y confirmación de operación.\nDetectivo: SIEM valida gaps, borrado de logs y eventos sin correlation-id.\nCorrectivo: Preservar evidencia, reconstruir línea temporal y reforzar logging.",
+                  "modelType": "STRIDE",
+                  "number": 6,
+                  "score": "Alto (8)",
+                  "threatId": "e19c3579-5ada-4aab-98cd-413666feb631"
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "title": "T16 - Logs incompletos o sin correlación",
+                  "type": "Repudiation",
+                  "description": "La organización no puede atribuir acciones por falta de eventos, identidad o correlation-id.",
+                  "mitigation": "Preventivo: Logging estándar, correlation-id, UTC/NTP, campos mínimos y retención definida.\nDetectivo: Controles de cobertura y health checks del pipeline de logs.\nCorrectivo: Restaurar ingestión, preservar fuentes alternas y completar telemetría.",
+                  "modelType": "STRIDE",
+                  "number": 16,
+                  "score": "Medio (6)",
+                  "threatId": "dd5fcbfc-a2cd-40a4-b187-05d307b2b2db"
+                }
+              ],
+              "protocol": "TLS",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "f8c8d09d-3ab3-4c27-8498-ec4771029416"
+              },
+              "target": {
+                "id": "23c39c50-1868-4d11-92d7-c2088d8ab730"
+              },
+              "vertices": [],
+              "id": "ffcf49c4-45c1-45a9-a961-645eed2cef4f",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Eventos seguridad",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 34,
+              "threats": [],
+              "protocol": "TLS",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "outOfScope": false,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "66cb8420-1b0b-4ead-81e5-c22326368335"
+              },
+              "target": {
+                "id": "aeaf04ad-75b8-4eff-b636-0c759d2c7ae9"
+              },
+              "vertices": [],
+              "id": "ad7898d3-2784-4542-ad85-9628fbd53f64",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Obtener secretos",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 35,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T09 - Exposición de secretos de aplicación",
+                  "type": "Information disclosure",
+                  "description": "API keys, passwords o claves privadas quedan en código, variables inseguras o logs.",
+                  "mitigation": "Preventivo: Vault/KMS, secretos dinámicos, rotación, escaneo de secretos y prohibición de hardcoding.\nDetectivo: Secret scanning, SIEM y alertas de uso desde ubicaciones inesperadas.\nCorrectivo: Revocar y rotar secreto, invalidar accesos y revisar historial de uso.",
+                  "modelType": "STRIDE",
+                  "number": 9,
+                  "score": "Alto (8)",
+                  "threatId": "2f6b4e25-934c-4ca0-a34a-39e8bc5623c5"
+                }
+              ],
+              "protocol": "mTLS",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "41869f0e-42e0-4f46-867d-16a70e859ffe"
+              },
+              "target": {
+                "id": "aeaf04ad-75b8-4eff-b636-0c759d2c7ae9"
+              },
+              "vertices": [],
+              "id": "05e6642d-c8ef-4a25-91e0-673b221905c1",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Claves / certificados",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 36,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T09 - Exposición de secretos de aplicación",
+                  "type": "Information disclosure",
+                  "description": "API keys, passwords o claves privadas quedan en código, variables inseguras o logs.",
+                  "mitigation": "Preventivo: Vault/KMS, secretos dinámicos, rotación, escaneo de secretos y prohibición de hardcoding.\nDetectivo: Secret scanning, SIEM y alertas de uso desde ubicaciones inesperadas.\nCorrectivo: Revocar y rotar secreto, invalidar accesos y revisar historial de uso.",
+                  "modelType": "STRIDE",
+                  "number": 9,
+                  "score": "Alto (8)",
+                  "threatId": "37f3267c-e555-4835-8a75-c83cd262ba8a"
+                }
+              ],
+              "protocol": "mTLS",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Boundary",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "x": 260,
+                "y": 40
+              },
+              "target": {
+                "x": 260,
+                "y": 760
+              },
+              "vertices": [],
+              "id": "b28f98d2-21a6-4989-8522-7ca1f41a6492",
+              "z": 37,
+              "isTrustBoundary": true,
+              "hasOpenThreats": false,
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "TB-01 Internet / Edge",
+                      "font-weight": "700",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "attrs": {}
+            },
+            {
+              "type": "tm.Boundary",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "x": 970,
+                "y": 40
+              },
+              "target": {
+                "x": 970,
+                "y": 760
+              },
+              "vertices": [],
+              "id": "dd546dfd-5935-4080-9686-d312bc708545",
+              "z": 38,
+              "isTrustBoundary": true,
+              "hasOpenThreats": false,
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "TB-02 Aplicación / Datos",
+                      "font-weight": "700",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "attrs": {}
+            },
+            {
+              "type": "tm.Boundary",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "x": 1210,
+                "y": 40
+              },
+              "target": {
+                "x": 1210,
+                "y": 760
+              },
+              "vertices": [],
+              "id": "3d247a5b-2956-45f0-a027-63fe1d7b101e",
+              "z": 39,
+              "isTrustBoundary": true,
+              "hasOpenThreats": false,
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "TB-03 Terceros / Sistemas externos",
+                      "font-weight": "700",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "attrs": {}
+            }
+          ]
+        },
+        "size": {
+          "height": 820,
+          "width": 1550
+        },
+        "version": "2.0"
+      },
+      {
+        "title": "DFD Nivel 2 - Descomposición de Transferencias",
+        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
+        "diagramType": "STRIDE",
+        "id": 2,
+        "diagramJson": {
+          "cells": [
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 30,
+                "y": 280
+              },
+              "angle": 0,
+              "id": "723db9a7-4b8c-4f68-963f-9944e49f0615",
+              "z": 1,
+              "threats": [],
+              "outOfScope": false,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Cliente autenticado"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Process",
+              "size": {
+                "width": 120,
+                "height": 100
+              },
+              "position": {
+                "x": 260,
+                "y": 280
+              },
+              "angle": 0,
+              "id": "ae0220f0-4e4b-4a1b-bb86-c7a1c337b636",
+              "z": 2,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T10 - DDoS sobre login y APIs críticas",
+                  "type": "Denial of service",
+                  "description": "Tráfico masivo o costoso agota recursos e impide el servicio.",
+                  "mitigation": "Preventivo: CDN/WAF, rate limiting, cuotas, circuit breakers, autoscaling y caching seguro.\nDetectivo: Métricas de latencia, saturación, errores 429/5xx y detección de bots.\nCorrectivo: Activar mitigación DDoS, limitar funciones no críticas y escalar capacidad.",
+                  "modelType": "STRIDE",
+                  "number": 10,
+                  "score": "Alto (9)",
+                  "threatId": "07486754-2f13-4af0-95e2-5286b54778a2"
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T22 - Agotamiento de recursos por abuso de API",
+                  "type": "Denial of service",
+                  "description": "Solicitudes costosas o concurrencia abusiva degradan pools, DB o servicios externos.",
+                  "mitigation": "Preventivo: Rate limits por identidad, timeouts, bulkheads, colas, límites de payload y circuit breakers.\nDetectivo: APM, saturación de pools, latencia p95/p99 y errores.\nCorrectivo: Throttle, degradación controlada y escalamiento.",
+                  "modelType": "STRIDE",
+                  "number": 22,
+                  "score": "Alto (9)",
+                  "threatId": "4a3d1f5a-6ab5-42ee-8f38-15ca09b3fe7b"
+                }
+              ],
+              "privilegeLevel": "executionContext=Limited",
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "isWebApplication": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "API Gateway"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Process",
+              "size": {
+                "width": 120,
+                "height": 100
+              },
+              "position": {
+                "x": 470,
+                "y": 120
+              },
+              "angle": 0,
+              "id": "1b67a545-03d8-46d5-84d4-b7bf93b76fcc",
+              "z": 3,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T02 - Robo o replay de token de sesión",
+                  "type": "Spoofing",
+                  "description": "Un token robado o reutilizado permite secuestrar una sesión y operar como el usuario.",
+                  "mitigation": "Preventivo: TLS estricto, cookies HttpOnly/Secure/SameSite, tokens de corta vida, rotación de refresh token y binding cuando aplique.\nDetectivo: Detección de reutilización de refresh token, geovelocidad y cambio de dispositivo.\nCorrectivo: Revocación inmediata de tokens y cierre global de sesiones.",
+                  "modelType": "STRIDE",
+                  "number": 2,
+                  "score": "Crítico (12)",
+                  "threatId": "18b484d5-9d34-41cc-b4a0-8723bd6d8095"
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T04 - BOLA / acceso a cuentas ajenas",
+                  "type": "Elevation of privilege",
+                  "description": "Un usuario autenticado altera identificadores y accede a recursos de otro cliente.",
+                  "mitigation": "Preventivo: Autorización a nivel de objeto en cada solicitud, ABAC/RBAC y deny-by-default.\nDetectivo: Alertas por enumeración de IDs y accesos cruzados; pruebas automatizadas de autorización.\nCorrectivo: Bloquear cuenta/sesión, corregir regla y revisar exposición de datos.",
+                  "modelType": "STRIDE",
+                  "number": 4,
+                  "score": "Crítico (12)",
+                  "threatId": "4bf5996f-f7ef-4f01-8331-c59525f876f9"
+                }
+              ],
+              "privilegeLevel": "executionContext=Limited",
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "isWebApplication": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Validación Token / Autorización"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Process",
+              "size": {
+                "width": 120,
+                "height": 100
+              },
+              "position": {
+                "x": 470,
+                "y": 330
+              },
+              "angle": 0,
+              "id": "028eb6bb-8f5b-452d-a695-64c66fa9ce21",
+              "z": 4,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T03 - Manipulación de monto o beneficiario",
+                  "type": "Tampering",
+                  "description": "El atacante modifica parámetros de una transferencia antes de su ejecución.",
+                  "mitigation": "Preventivo: Validación server-side, controles de negocio, confirmación transaccional, firma/nonce del contexto y límites.\nDetectivo: Reglas antifraude, comparación de beneficiario/monto y alertas de operaciones inusuales.\nCorrectivo: Bloqueo/reverso cuando proceda, congelamiento de cuenta y análisis forense.",
+                  "modelType": "STRIDE",
+                  "number": 3,
+                  "score": "Crítico (12)",
+                  "threatId": "3cf6f999-ca02-4c3e-848d-cb243a897208"
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T12 - Replay / duplicación de transferencias",
+                  "type": "Tampering",
+                  "description": "La misma solicitud válida se reenvía y puede provocar cargos duplicados.",
+                  "mitigation": "Preventivo: Idempotency keys, nonces, timestamps, estado transaccional y bloqueo atómico.\nDetectivo: Detección de claves repetidas y transacciones idénticas en ventana corta.\nCorrectivo: Cancelar/revertir duplicados y ajustar lógica transaccional.",
+                  "modelType": "STRIDE",
+                  "number": 12,
+                  "score": "Crítico (12)",
+                  "threatId": "6acdf101-067f-4474-abb0-1176ce12fbf3"
+                }
+              ],
+              "privilegeLevel": "executionContext=Limited",
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "isWebApplication": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Orquestador Transferencia"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Process",
+              "size": {
+                "width": 120,
+                "height": 100
+              },
+              "position": {
+                "x": 700,
+                "y": 80
+              },
+              "angle": 0,
+              "id": "bf5ce228-a36b-4d02-bc98-cfb69939a4e2",
+              "z": 5,
+              "threats": [],
+              "privilegeLevel": "executionContext=Limited",
+              "outOfScope": false,
+              "hasOpenThreats": false,
+              "isWebApplication": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Fraude / Risk Engine"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 170,
+                "height": 80
+              },
+              "position": {
+                "x": 700,
+                "y": 240
+              },
+              "angle": 0,
+              "id": "14ae6ee2-0b45-45aa-a03b-be05dfba1441",
+              "z": 6,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T12 - Replay / duplicación de transferencias",
+                  "type": "Tampering",
+                  "description": "La misma solicitud válida se reenvía y puede provocar cargos duplicados.",
+                  "mitigation": "Preventivo: Idempotency keys, nonces, timestamps, estado transaccional y bloqueo atómico.\nDetectivo: Detección de claves repetidas y transacciones idénticas en ventana corta.\nCorrectivo: Cancelar/revertir duplicados y ajustar lógica transaccional.",
+                  "modelType": "STRIDE",
+                  "number": 12,
+                  "score": "Crítico (12)",
+                  "threatId": "386ec973-4ac6-4460-baa7-0ba0cefe4a2a"
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "title": "T17 - Envenenamiento de sesión/cache",
+                  "type": "Tampering",
+                  "description": "Un actor modifica datos de sesión, nonce o caché para cambiar comportamiento.",
+                  "mitigation": "Preventivo: Integridad de sesión, claves aleatorias, TTL, ACL estrictas y TLS.\nDetectivo: Detección de inconsistencias de sesión y accesos administrativos.\nCorrectivo: Invalidar caché/sesiones y restaurar datos confiables.",
+                  "modelType": "STRIDE",
+                  "number": 17,
+                  "score": "Medio (6)",
+                  "threatId": "58ebdf0a-948e-4244-b358-4c7405d74728"
+                }
+              ],
+              "storesCredentials": true,
+              "isALog": false,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Idempotencia / Nonce"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 170,
+                "height": 80
+              },
+              "position": {
+                "x": 700,
+                "y": 450
+              },
+              "angle": 0,
+              "id": "3a7c6a22-c398-4b64-b291-f3091083918d",
+              "z": 7,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T18 - Exfiltración desde base de datos",
+                  "type": "Information disclosure",
+                  "description": "Credenciales o privilegios de DB permiten lectura masiva de datos.",
+                  "mitigation": "Preventivo: Segmentación, cifrado at-rest, mínimo privilegio, DB activity monitoring y secretos rotados.\nDetectivo: Alertas de consultas masivas, exportaciones y accesos fuera de patrón.\nCorrectivo: Aislar cuenta, rotar credenciales y activar respuesta a fuga.",
+                  "modelType": "STRIDE",
+                  "number": 18,
+                  "score": "Alto (8)",
+                  "threatId": "1d001b79-49a0-4219-8ff8-beced8e042e1"
+                }
+              ],
+              "storesCredentials": false,
+              "isALog": false,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "DB Transacciones"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Process",
+              "size": {
+                "width": 120,
+                "height": 100
+              },
+              "position": {
+                "x": 940,
+                "y": 280
+              },
+              "angle": 0,
+              "id": "40ebdc05-b3b7-4cdb-a8ef-a5e41150c8c2",
+              "z": 8,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T13 - SSRF desde servicio de integración",
+                  "type": "Elevation of privilege",
+                  "description": "Parámetros controlables permiten al servidor acceder a endpoints internos o metadata.",
+                  "mitigation": "Preventivo: Allow-list de destinos, egress filtering, URL parser seguro y bloqueo de metadata.\nDetectivo: Alertas de egress anómalo y DNS/HTTP inesperado.\nCorrectivo: Bloquear destino, rotar credenciales potencialmente expuestas y corregir validación.",
+                  "modelType": "STRIDE",
+                  "number": 13,
+                  "score": "Alto (8)",
+                  "threatId": "346fad48-6804-477e-b993-edee78e7d7be"
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T20 - Manipulación de mensajes de integración",
+                  "type": "Tampering",
+                  "description": "Mensajes hacia core o procesadores son modificados, reordenados o falsificados.",
+                  "mitigation": "Preventivo: mTLS, firma de mensajes cuando aplique, schemas estrictos, nonces e integridad end-to-end.\nDetectivo: Reconciliación, firmas inválidas y alertas por secuencias anómalas.\nCorrectivo: Rechazar mensajes, reconciliar ledger y reprocesar desde fuente confiable.",
+                  "modelType": "STRIDE",
+                  "number": 20,
+                  "score": "Alto (8)",
+                  "threatId": "7ba35c4d-1670-4d1f-ac50-b6f3a7b76945"
+                }
+              ],
+              "privilegeLevel": "executionContext=Limited",
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "isWebApplication": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Adaptador Core"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 1200,
+                "y": 140
+              },
+              "angle": 0,
+              "id": "37cefa48-5fb7-4fe1-b9a7-e9806d6f9624",
+              "z": 9,
+              "threats": [],
+              "outOfScope": false,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Core Bancario"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 1200,
+                "y": 340
+              },
+              "angle": 0,
+              "id": "bce73efc-0ac9-4f2b-824f-473f84db7593",
+              "z": 10,
+              "threats": [],
+              "outOfScope": false,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Red de Pagos"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 170,
+                "height": 80
+              },
+              "position": {
+                "x": 940,
+                "y": 500
+              },
+              "angle": 0,
+              "id": "fce2853c-9f5b-4b70-bc46-9fa69dbda790",
+              "z": 11,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T06 - Repudio de una transferencia",
+                  "type": "Repudiation",
+                  "description": "Un usuario o actor interno niega haber ejecutado una operación y no existe evidencia suficiente.",
+                  "mitigation": "Preventivo: Auditoría inmutable, correlación, timestamp confiable, identidad fuerte y confirmación de operación.\nDetectivo: SIEM valida gaps, borrado de logs y eventos sin correlation-id.\nCorrectivo: Preservar evidencia, reconstruir línea temporal y reforzar logging.",
+                  "modelType": "STRIDE",
+                  "number": 6,
+                  "score": "Alto (8)",
+                  "threatId": "82398876-0bfe-41a6-86d3-def15a17f2f4"
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "title": "T16 - Logs incompletos o sin correlación",
+                  "type": "Repudiation",
+                  "description": "La organización no puede atribuir acciones por falta de eventos, identidad o correlation-id.",
+                  "mitigation": "Preventivo: Logging estándar, correlation-id, UTC/NTP, campos mínimos y retención definida.\nDetectivo: Controles de cobertura y health checks del pipeline de logs.\nCorrectivo: Restaurar ingestión, preservar fuentes alternas y completar telemetría.",
+                  "modelType": "STRIDE",
+                  "number": 16,
+                  "score": "Medio (6)",
+                  "threatId": "2814cbf1-96f5-492f-bcb7-83dea75ebd5c"
+                }
+              ],
+              "storesCredentials": false,
+              "isALog": true,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Auditoría Inmutable"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Process",
+              "size": {
+                "width": 120,
+                "height": 100
+              },
+              "position": {
+                "x": 1200,
+                "y": 540
+              },
+              "angle": 0,
+              "id": "02f7ed3d-fd2c-4ed5-b8ce-db361aa5e5ce",
+              "z": 12,
+              "threats": [],
+              "privilegeLevel": "executionContext=Limited",
+              "outOfScope": false,
+              "hasOpenThreats": false,
+              "isWebApplication": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Notificación"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "723db9a7-4b8c-4f68-963f-9944e49f0615"
+              },
+              "target": {
+                "id": "ae0220f0-4e4b-4a1b-bb86-c7a1c337b636"
+              },
+              "vertices": [],
+              "id": "0d311fed-6318-484a-b8c6-21e70bb0bf3a",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "POST /transfers",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 13,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T08 - Intercepción por TLS débil o mala configuración",
+                  "type": "Information disclosure",
+                  "description": "Un atacante intercepta o altera tráfico por TLS insuficiente o ausencia de mTLS en enlaces críticos.",
+                  "mitigation": "Preventivo: TLS 1.2+ / 1.3, HSTS, validación de certificados, mTLS interno y pinning evaluado en móvil.\nDetectivo: Monitoreo de certificados, handshake failures y configuración continua.\nCorrectivo: Rotar certificados/llaves, bloquear protocolos débiles y revisar exposición.",
+                  "modelType": "STRIDE",
+                  "number": 8,
+                  "score": "Alto (8)",
+                  "threatId": "5489b3e7-1064-4a44-b50d-e055587637a2"
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T22 - Agotamiento de recursos por abuso de API",
+                  "type": "Denial of service",
+                  "description": "Solicitudes costosas o concurrencia abusiva degradan pools, DB o servicios externos.",
+                  "mitigation": "Preventivo: Rate limits por identidad, timeouts, bulkheads, colas, límites de payload y circuit breakers.\nDetectivo: APM, saturación de pools, latencia p95/p99 y errores.\nCorrectivo: Throttle, degradación controlada y escalamiento.",
+                  "modelType": "STRIDE",
+                  "number": 22,
+                  "score": "Alto (9)",
+                  "threatId": "138731bf-6e4b-4534-bfd3-88f35060eaf3"
+                }
+              ],
+              "protocol": "HTTPS",
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "ae0220f0-4e4b-4a1b-bb86-c7a1c337b636"
+              },
+              "target": {
+                "id": "1b67a545-03d8-46d5-84d4-b7bf93b76fcc"
+              },
+              "vertices": [],
+              "id": "2894be38-9a4d-441a-b9f5-bffd0c6b2c92",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Validar token/claims",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 14,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T02 - Robo o replay de token de sesión",
+                  "type": "Spoofing",
+                  "description": "Un token robado o reutilizado permite secuestrar una sesión y operar como el usuario.",
+                  "mitigation": "Preventivo: TLS estricto, cookies HttpOnly/Secure/SameSite, tokens de corta vida, rotación de refresh token y binding cuando aplique.\nDetectivo: Detección de reutilización de refresh token, geovelocidad y cambio de dispositivo.\nCorrectivo: Revocación inmediata de tokens y cierre global de sesiones.",
+                  "modelType": "STRIDE",
+                  "number": 2,
+                  "score": "Crítico (12)",
+                  "threatId": "3a77cffd-c028-4d84-a1fb-0651af93b096"
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T04 - BOLA / acceso a cuentas ajenas",
+                  "type": "Elevation of privilege",
+                  "description": "Un usuario autenticado altera identificadores y accede a recursos de otro cliente.",
+                  "mitigation": "Preventivo: Autorización a nivel de objeto en cada solicitud, ABAC/RBAC y deny-by-default.\nDetectivo: Alertas por enumeración de IDs y accesos cruzados; pruebas automatizadas de autorización.\nCorrectivo: Bloquear cuenta/sesión, corregir regla y revisar exposición de datos.",
+                  "modelType": "STRIDE",
+                  "number": 4,
+                  "score": "Crítico (12)",
+                  "threatId": "56c699aa-b675-4638-821e-937945b233de"
+                }
+              ],
+              "protocol": "mTLS",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "ae0220f0-4e4b-4a1b-bb86-c7a1c337b636"
+              },
+              "target": {
+                "id": "028eb6bb-8f5b-452d-a695-64c66fa9ce21"
+              },
+              "vertices": [],
+              "id": "1c6e19c9-c07a-4fb1-9780-446463385081",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Solicitud autorizada",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 15,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T03 - Manipulación de monto o beneficiario",
+                  "type": "Tampering",
+                  "description": "El atacante modifica parámetros de una transferencia antes de su ejecución.",
+                  "mitigation": "Preventivo: Validación server-side, controles de negocio, confirmación transaccional, firma/nonce del contexto y límites.\nDetectivo: Reglas antifraude, comparación de beneficiario/monto y alertas de operaciones inusuales.\nCorrectivo: Bloqueo/reverso cuando proceda, congelamiento de cuenta y análisis forense.",
+                  "modelType": "STRIDE",
+                  "number": 3,
+                  "score": "Crítico (12)",
+                  "threatId": "26f4724f-0207-442a-8134-779821a22490"
+                }
+              ],
+              "protocol": "mTLS",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "028eb6bb-8f5b-452d-a695-64c66fa9ce21"
+              },
+              "target": {
+                "id": "bf5ce228-a36b-4d02-bc98-cfb69939a4e2"
+              },
+              "vertices": [],
+              "id": "6731f654-5bb9-4a98-b2a9-9d43042b2e13",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Evaluar riesgo",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 16,
+              "threats": [],
+              "protocol": "mTLS",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "outOfScope": false,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "028eb6bb-8f5b-452d-a695-64c66fa9ce21"
+              },
+              "target": {
+                "id": "14ae6ee2-0b45-45aa-a03b-be05dfba1441"
+              },
+              "vertices": [],
+              "id": "396e259d-3f2f-42a8-9eac-5f385af5829d",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Verificar idempotencia",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 17,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T12 - Replay / duplicación de transferencias",
+                  "type": "Tampering",
+                  "description": "La misma solicitud válida se reenvía y puede provocar cargos duplicados.",
+                  "mitigation": "Preventivo: Idempotency keys, nonces, timestamps, estado transaccional y bloqueo atómico.\nDetectivo: Detección de claves repetidas y transacciones idénticas en ventana corta.\nCorrectivo: Cancelar/revertir duplicados y ajustar lógica transaccional.",
+                  "modelType": "STRIDE",
+                  "number": 12,
+                  "score": "Crítico (12)",
+                  "threatId": "c2b80312-9eb6-456c-80e3-b0575461c48c"
+                }
+              ],
+              "protocol": "TLS",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "028eb6bb-8f5b-452d-a695-64c66fa9ce21"
+              },
+              "target": {
+                "id": "40ebdc05-b3b7-4cdb-a8ef-a5e41150c8c2"
+              },
+              "vertices": [],
+              "id": "929c0a31-f58e-4c39-9df0-fd9da6d2e903",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Ejecutar transferencia",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 18,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T03 - Manipulación de monto o beneficiario",
+                  "type": "Tampering",
+                  "description": "El atacante modifica parámetros de una transferencia antes de su ejecución.",
+                  "mitigation": "Preventivo: Validación server-side, controles de negocio, confirmación transaccional, firma/nonce del contexto y límites.\nDetectivo: Reglas antifraude, comparación de beneficiario/monto y alertas de operaciones inusuales.\nCorrectivo: Bloqueo/reverso cuando proceda, congelamiento de cuenta y análisis forense.",
+                  "modelType": "STRIDE",
+                  "number": 3,
+                  "score": "Crítico (12)",
+                  "threatId": "f6d2663e-16e2-4d1f-a095-30a894c084d2"
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T20 - Manipulación de mensajes de integración",
+                  "type": "Tampering",
+                  "description": "Mensajes hacia core o procesadores son modificados, reordenados o falsificados.",
+                  "mitigation": "Preventivo: mTLS, firma de mensajes cuando aplique, schemas estrictos, nonces e integridad end-to-end.\nDetectivo: Reconciliación, firmas inválidas y alertas por secuencias anómalas.\nCorrectivo: Rechazar mensajes, reconciliar ledger y reprocesar desde fuente confiable.",
+                  "modelType": "STRIDE",
+                  "number": 20,
+                  "score": "Alto (8)",
+                  "threatId": "6bc56437-6363-4a43-b807-11fe650bd12d"
+                }
+              ],
+              "protocol": "mTLS",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "40ebdc05-b3b7-4cdb-a8ef-a5e41150c8c2"
+              },
+              "target": {
+                "id": "37cefa48-5fb7-4fe1-b9a7-e9806d6f9624"
+              },
+              "vertices": [],
+              "id": "4dd4fac1-b6e2-41eb-87c9-6e0b865592ca",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Débito/crédito ledger",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 19,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T20 - Manipulación de mensajes de integración",
+                  "type": "Tampering",
+                  "description": "Mensajes hacia core o procesadores son modificados, reordenados o falsificados.",
+                  "mitigation": "Preventivo: mTLS, firma de mensajes cuando aplique, schemas estrictos, nonces e integridad end-to-end.\nDetectivo: Reconciliación, firmas inválidas y alertas por secuencias anómalas.\nCorrectivo: Rechazar mensajes, reconciliar ledger y reprocesar desde fuente confiable.",
+                  "modelType": "STRIDE",
+                  "number": 20,
+                  "score": "Alto (8)",
+                  "threatId": "b54f29bd-fb49-4577-bf2e-1c52459e6eb1"
+                }
+              ],
+              "protocol": "mTLS/VPN",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "40ebdc05-b3b7-4cdb-a8ef-a5e41150c8c2"
+              },
+              "target": {
+                "id": "bce73efc-0ac9-4f2b-824f-473f84db7593"
+              },
+              "vertices": [],
+              "id": "e8c0e5e2-2843-4354-9c99-7f4285ac03ff",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Transferencia externa",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 20,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T20 - Manipulación de mensajes de integración",
+                  "type": "Tampering",
+                  "description": "Mensajes hacia core o procesadores son modificados, reordenados o falsificados.",
+                  "mitigation": "Preventivo: mTLS, firma de mensajes cuando aplique, schemas estrictos, nonces e integridad end-to-end.\nDetectivo: Reconciliación, firmas inválidas y alertas por secuencias anómalas.\nCorrectivo: Rechazar mensajes, reconciliar ledger y reprocesar desde fuente confiable.",
+                  "modelType": "STRIDE",
+                  "number": 20,
+                  "score": "Alto (8)",
+                  "threatId": "00468fa3-a6bb-4109-b958-3d0c5ef2f0cf"
+                }
+              ],
+              "protocol": "mTLS/VPN",
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "028eb6bb-8f5b-452d-a695-64c66fa9ce21"
+              },
+              "target": {
+                "id": "3a7c6a22-c398-4b64-b291-f3091083918d"
+              },
+              "vertices": [],
+              "id": "94d43885-d049-433c-998b-ca59bbd34c57",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Persistir estado",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 21,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T12 - Replay / duplicación de transferencias",
+                  "type": "Tampering",
+                  "description": "La misma solicitud válida se reenvía y puede provocar cargos duplicados.",
+                  "mitigation": "Preventivo: Idempotency keys, nonces, timestamps, estado transaccional y bloqueo atómico.\nDetectivo: Detección de claves repetidas y transacciones idénticas en ventana corta.\nCorrectivo: Cancelar/revertir duplicados y ajustar lógica transaccional.",
+                  "modelType": "STRIDE",
+                  "number": 12,
+                  "score": "Crítico (12)",
+                  "threatId": "cd231975-7a7e-40ee-91f4-fc15b07d774f"
+                }
+              ],
+              "protocol": "TLS DB",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "028eb6bb-8f5b-452d-a695-64c66fa9ce21"
+              },
+              "target": {
+                "id": "fce2853c-9f5b-4b70-bc46-9fa69dbda790"
+              },
+              "vertices": [],
+              "id": "987ed61d-afce-4225-810e-c55ceab203b7",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Registrar evidencia",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 22,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "T06 - Repudio de una transferencia",
+                  "type": "Repudiation",
+                  "description": "Un usuario o actor interno niega haber ejecutado una operación y no existe evidencia suficiente.",
+                  "mitigation": "Preventivo: Auditoría inmutable, correlación, timestamp confiable, identidad fuerte y confirmación de operación.\nDetectivo: SIEM valida gaps, borrado de logs y eventos sin correlation-id.\nCorrectivo: Preservar evidencia, reconstruir línea temporal y reforzar logging.",
+                  "modelType": "STRIDE",
+                  "number": 6,
+                  "score": "Alto (8)",
+                  "threatId": "14cde9ce-67e2-49de-9633-5c5e8f0cc4ef"
+                }
+              ],
+              "protocol": "TLS",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "outOfScope": false,
+              "hasOpenThreats": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "028eb6bb-8f5b-452d-a695-64c66fa9ce21"
+              },
+              "target": {
+                "id": "02f7ed3d-fd2c-4ed5-b8ce-db361aa5e5ce"
+              },
+              "vertices": [],
+              "id": "2967ac8f-53aa-4e97-9253-4818e7b1abb4",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Evento resultado",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 23,
+              "threats": [],
+              "protocol": "mTLS",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "outOfScope": false,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Boundary",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "x": 200,
+                "y": 40
+              },
+              "target": {
+                "x": 200,
+                "y": 700
+              },
+              "vertices": [],
+              "id": "712dbd02-1fee-4b25-8512-41a771ac366b",
+              "z": 24,
+              "isTrustBoundary": true,
+              "hasOpenThreats": false,
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "TB-01 Internet / API Edge",
+                      "font-weight": "700",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "attrs": {}
+            },
+            {
+              "type": "tm.Boundary",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "x": 860,
+                "y": 40
+              },
+              "target": {
+                "x": 860,
+                "y": 700
+              },
+              "vertices": [],
+              "id": "748ae268-acf6-4022-967c-3184df95d75a",
+              "z": 25,
+              "isTrustBoundary": true,
+              "hasOpenThreats": false,
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "TB-02 Servicios / Core e Integración",
+                      "font-weight": "700",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "attrs": {}
+            },
+            {
+              "type": "tm.Boundary",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "x": 1120,
+                "y": 40
+              },
+              "target": {
+                "x": 1120,
+                "y": 700
+              },
+              "vertices": [],
+              "id": "fad8c84b-5322-49ed-a90f-b8791c6c2ef9",
+              "z": 26,
+              "isTrustBoundary": true,
+              "hasOpenThreats": false,
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "TB-03 Terceros",
+                      "font-weight": "700",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "attrs": {}
+            }
+          ]
+        },
+        "size": {
+          "height": 760,
+          "width": 1450
+        },
+        "version": "2.0"
+      }
+    ],
+    "reviewer": "Arquitectura / Desarrollo / AppSec"
+  }
+}
